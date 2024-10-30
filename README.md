@@ -2,7 +2,6 @@ canoe
 =============
 
 [![Continuous Integration](https://github.com/augustjune/canoe/actions/workflows/ci.yml/badge.svg)](https://github.com/augustjune/canoe/actions/workflows/ci.yml)
-
 [![Gitter](https://badges.gitter.im/augustjune-canoe/community.svg)](https://gitter.im/augustjune-canoe/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.augustjune/canoe_2.12/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.augustjune/canoe_2.12)
@@ -19,7 +18,7 @@ sbt dependency:
 libraryDependencies += "org.augustjune" %% "canoe" % "<version>"
 ```
 You can find the latest version in [releases](https://github.com/augustjune/canoe/releases) tab
-or by clicking on the maven-central badge. The library is available for Scala 2.12, 2.13, and Scala.js.
+or by clicking on the maven-central badge. The library is available for Scala 2.12, 2.13, Scala 3 and Scala.js.
 
 Imports:
 ```scala
@@ -41,14 +40,15 @@ More samples can be found [here](https://github.com/augustjune/canoe/tree/master
 ```scala
 import canoe.api._
 import canoe.syntax._
-import cats.effect.ConcurrentEffect
+import cats.effect.Async
 import fs2.Stream
 
-def app[F[_]: ConcurrentEffect]: F[Unit] =
+def app[F[_]: Async]: F[Unit] =
   Stream
-    .resource(TelegramClient.global[F](token))
-    .flatMap { implicit client => Bot.polling[F].follow(greetings) }
-    .compile.drain
+    .resource(TelegramClient[F](token))
+    .flatMap(implicit client => Bot.polling[F].follow(greetings))
+    .compile
+    .drain
 
 def greetings[F[_]: TelegramClient]: Scenario[F, Unit] =
     for {
