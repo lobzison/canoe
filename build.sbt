@@ -43,13 +43,14 @@ lazy val examples = project
 
 lazy val projectSettings = Seq(
   organization := "org.augustjune",
+  version := "0.1-SNAPSHOT",
   licenses ++= Seq(("MIT", url("http://opensource.org/licenses/MIT"))),
   homepage := Some(url("https://github.com/augustjune/canoe")),
   developers := List(
     Developer("augustjune", "Yura Slinkin", "jurij.jurich@gmail.com", url("https://github.com/augustjune"))
   ),
-  scalaVersion := scala2_13,
-  crossScalaVersions := Seq(scala2_12, scala2_13, scala3)
+  scalaVersion := scala3,
+  crossScalaVersions := Seq(scala3)
 )
 
 lazy val crossDependencies =
