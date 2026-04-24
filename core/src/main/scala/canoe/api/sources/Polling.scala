@@ -46,6 +46,8 @@ object Polling {
   def continual[F[_]: TelegramClient: Functor]: Stream[F, Update] =
     new Polling[F](longPollTimeout).pollUpdates(0).flatMap(Stream.emits)
 
+  def continualWithHeartbeat[F[_]: TelegramClient: Functor](hb: F[Unit]): Stream[F, Update] =
+    new Polling[F](longPollTimeout).pollUpdates(0).evalTap(_ => hb).flatMap(Stream.emits)
   /** Polls new batch of updates when consumer is ready and `interval` passed since the last polling
     */
   private[api] def metered[F[_]: TelegramClient: Temporal](
