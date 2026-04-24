@@ -43,7 +43,7 @@ object Polling {
 
   /** Polls new batch of updates whenever consumer is ready
     */
-  private[api] def continual[F[_]: TelegramClient: Functor]: Stream[F, Update] =
+  def continual[F[_]: TelegramClient: Functor]: Stream[F, Update] =
     new Polling[F](longPollTimeout).pollUpdates(0).flatMap(Stream.emits)
 
   /** Polls new batch of updates when consumer is ready and `interval` passed since the last polling
