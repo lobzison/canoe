@@ -1,0 +1,23 @@
+core/src/main/scala/canoe/api/sources/Polling.scala
+  668cbdfd3cb9058c 46
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "29e6347eabd6c1b14da1489a8df719f4bf55d48a",
+  "prompts": {
+    "668cbdfd3cb9058c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "120d82f5-ad60-416f-b566-eba32299993b",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Gleb Lobov",
+      "messages": [],
+      "total_additions": 1,
+      "total_deletions": 1,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    }
+  }
+}
